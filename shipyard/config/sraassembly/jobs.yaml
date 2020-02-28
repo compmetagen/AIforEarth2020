@@ -1,0 +1,19 @@
+job_specifications:
+- id: {{ sra_accession }}_sraassembly_job
+  environment_variables:
+    SAMPLES_DIR: ${AZ_BATCH_NODE_SHARED_DIR}/aiforearth2020/samples
+    SCRIPTS_DIR: ${AZ_BATCH_NODE_STARTUP_DIR}/wd/scripts/
+  shared_data_volumes:
+  - data_blobvol
+  tasks:
+    - id: {{ sra_accession }}_download_task
+      docker_image: sra-toolkit
+      command: ${SCRIPTS_DIR}download.sh {{ sra_accession }}
+    - id: {{ sra_accession }}_clean_task
+      docker_image: bbtools
+      command: ${SCRIPTS_DIR}/clean.sh {{ sra_accession }}
+      depends_on: {{ sra_accession }}_download_task
+    - id: {{ sra_accession }}_assembly_task
+      docker_image: spades
+      command: ${SCRIPTS_DIR}assembly.sh {{ sra_accession }}
+      depends_on: {{ sra_accession }}_clean_task

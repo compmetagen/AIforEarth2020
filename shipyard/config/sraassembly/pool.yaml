@@ -1,0 +1,29 @@
+pool_specification:
+  id: sraassembly_pool
+  vm_configuration:
+    platform_image:
+      publisher: Canonical
+      offer: UbuntuServer
+      sku: 18.04-LTS
+  vm_count:
+    dedicated: 0
+    low_priority: 0
+  vm_size: STANDARD_E48A_V4
+  max_tasks_per_node: 1
+  autoscale:
+    evaluation_interval: 00:15:00
+    scenario:
+      name: active_tasks
+      maximum_vm_count:
+        dedicated: 2
+        low_priority: 0
+      maximum_vm_increment_per_evaluation:
+        dedicated: -1
+        low_priority: -1
+  resource_files:
+    - blob_source: https://github.com/nextflow-io/rnatoy/raw/master/data/ggal/ggal_1_48850000_49020000.Ggal71.500bpflank.fa
+      file_path: scripts/download.sh
+    - blob_source: https://github.com/nextflow-io/rnatoy/raw/master/data/ggal/ggal_1_48850000_49020000.bed.gff
+      file_path: scripts/clean.sh
+    - blob_source: https://github.com/nextflow-io/rnatoy/raw/master/data/ggal/ggal_1_48850000_49020000.bed.gff
+      file_path: scripts/assemble.sh
