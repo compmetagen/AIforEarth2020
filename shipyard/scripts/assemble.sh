@@ -1,8 +1,8 @@
 # assemble.sh SRA_ACCESSION
 
 #### Parameters:
-THREADS=1
-MEMORY=300
+THREADS=32
+MEMORY=350
 #### End Parameters
 
 SAMPLES_DIR=${AZ_BATCH_NODE_SHARED_DIR}/aiforearth/samples

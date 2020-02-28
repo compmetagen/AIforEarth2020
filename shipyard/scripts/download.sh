@@ -1,7 +1,7 @@
 # download.sh SRA_ACCESSION
 
 #### Parameters:
-THREADS=1
+THREADS=4
 #### End Parameters
 
 SAMPLES_DIR=${AZ_BATCH_NODE_SHARED_DIR}/aiforearth/samples
