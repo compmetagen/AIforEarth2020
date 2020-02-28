@@ -32,7 +32,7 @@ if [ -f "${1}_2.fastq" ]; then
 
     bbduk.sh \
         in1=nocont_1.fastq in2=nocont_2.fastq \
-        out1=${1}_1.fastq out2=${1}_2.fq \
+        out1=${1}_1.fastq out2=${1}_2.fastq \
         minavgquality=3 maxns=4 qtrim=r trimq=10 mlf=0.5 minlength=50 \
         interleaved=f threads=$THREADS
     rm nocont_?.fastq
