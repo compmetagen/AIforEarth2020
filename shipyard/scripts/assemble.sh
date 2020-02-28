@@ -17,8 +17,8 @@ if [ -f "${1}_2.fastq" ]; then
     spades.py \
         --meta \
         --only-assembler \
-        -1 ${SAMPLES_DIR}_1.fastq \
-        -2 ${SAMPLES_DIR}_2.fastq  \
+        -1 ${1}_1.fastq \
+        -2 ${1}_2.fastq  \
         --threads $THREADS \
         --memory $MEMORY \
         -o spades
