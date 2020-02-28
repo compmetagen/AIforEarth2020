@@ -5,6 +5,8 @@ THREADS=1
 MEMORY=300
 #### End Parameters
 
+SAMPLES_DIR=${AZ_BATCH_NODE_SHARED_DIR}/aiforearth/samples
+
 mkdir -p ${SAMPLES_DIR}/${1}/logs
 mkdir -p ${SAMPLES_DIR}/${1}/logs/assemble
 mkdir -p ${SAMPLES_DIR}/${1}/spades
@@ -26,4 +28,4 @@ if [ -f "${1}_2.fastq" ]; then
 fi
 
 # copy logs
-cp ${AZ_BATCH_TASK_WORKING_DIR}/std???.txt ${SAMPLES_DIR}/${1}/logs/clean
+cp ${AZ_BATCH_TASK_DIR}/std???.txt ${SAMPLES_DIR}/${1}/logs/assemble

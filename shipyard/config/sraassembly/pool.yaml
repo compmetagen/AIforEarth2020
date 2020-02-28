@@ -1,5 +1,5 @@
 pool_specification:
-  id: sraassembly_pool
+  id: sraassembly-pool
   vm_configuration:
     platform_image:
       publisher: Canonical
@@ -8,7 +8,7 @@ pool_specification:
   vm_count:
     dedicated: 0
     low_priority: 0
-  vm_size: STANDARD_E48A_V4
+  vm_size: STANDARD_E48_V3
   max_tasks_per_node: 1
   autoscale:
     evaluation_interval: 00:15:00

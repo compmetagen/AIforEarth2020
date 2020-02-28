@@ -3,17 +3,15 @@ batch_shipyard:
 global_resources:
   volumes:
     shared_data_volumes:
-      data_blobvol: # volume alias
+      datablob_vol:
         volume_driver: azureblob
         storage_account_settings: datalake1
-        azure_blob_container_name: aiforearth2020
-        container_path: $AZ_BATCH_NODE_SHARED_DIR/aiforearth2020
+        azure_blob_container_name: aiforearth
+        container_path: ${AZ_BATCH_NODE_SHARED_DIR}/aiforearth
         mount_options:
-        - --use-https=true
+          - --use-https=true
         bind_options: rw
   docker_images:
     - aiforearth2020/sra-toolkit
     - aiforearth2020/bbtools
     - aiforearth2020/spades
-
-  

@@ -8,6 +8,8 @@
 THREADS=1
 #### End Parameters
 
+SAMPLES_DIR=${AZ_BATCH_NODE_SHARED_DIR}/aiforearth/samples
+
 mkdir -p ${SAMPLES_DIR}/${1}/logs
 mkdir -p ${SAMPLES_DIR}/${1}/logs/clean
 mkdir -p ${SAMPLES_DIR}/${1}/fastq_clean
@@ -55,4 +57,4 @@ cp ${1}*.fastq ${SAMPLES_DIR}/${1}/fastq_clean
 rm -rf ${1}*.fastq
 
 # copy logs
-cp ${AZ_BATCH_TASK_WORKING_DIR}/std???.txt ${SAMPLES_DIR}/${1}/logs/clean
+cp ${AZ_BATCH_TASK_DIR}/std???.txt ${SAMPLES_DIR}/${1}/logs/clean
