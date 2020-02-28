@@ -21,9 +21,10 @@ pool_specification:
         dedicated: -1
         low_priority: -1
   resource_files:
-    - blob_source: https://github.com/nextflow-io/rnatoy/raw/master/data/ggal/ggal_1_48850000_49020000.Ggal71.500bpflank.fa
+    - blob_source: https://raw.githubusercontent.com/compmetagen/AIforEarth2020/master/shipyard/scripts/download.sh
       file_path: scripts/download.sh
-    - blob_source: https://github.com/nextflow-io/rnatoy/raw/master/data/ggal/ggal_1_48850000_49020000.bed.gff
+    - blob_source: https://raw.githubusercontent.com/compmetagen/AIforEarth2020/master/shipyard/scripts/clean.sh
       file_path: scripts/clean.sh
-    - blob_source: https://github.com/nextflow-io/rnatoy/raw/master/data/ggal/ggal_1_48850000_49020000.bed.gff
+    - blob_source: https://raw.githubusercontent.com/compmetagen/AIforEarth2020/master/shipyard/scripts/assemble.sh
       file_path: scripts/assemble.sh
+      
