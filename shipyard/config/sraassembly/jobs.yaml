@@ -1,20 +1,29 @@
 job_specifications:
 - id: {{ sra_accession }}-sraassembly-job
-  environment_variables:
-    SCRIPTS_DIR: ${AZ_BATCH_NODE_STARTUP_DIR}/wd/scripts
   shared_data_volumes:
     - datablob_vol
   tasks:
     - id: {{ sra_accession }}-download-task
       docker_image: aiforearth2020/sra-toolkit
-      command: bash -c "${SCRIPTS_DIR}/download.sh {{ sra_accession }}"
+      resource_files:
+        - blob_source: https://raw.githubusercontent.com/compmetagen/AIforEarth2020/master/shipyard/scripts/download.sh
+          file_path: download.sh
+      command: download.sh {{ sra_accession }}
     - id: {{ sra_accession }}-clean-task
       docker_image: aiforearth2020/bbtools
-      command: bash -c "${SCRIPTS_DIR}/clean.sh {{ sra_accession }}"
+      resource_files:
+        - blob_source: https://raw.githubusercontent.com/compmetagen/AIforEarth2020/master/shipyard/scripts/clean.sh
+          file_path: clean.sh
+      command: clean.sh {{ sra_accession }}
       depends_on:
         - {{ sra_accession }}-download-task
     - id: {{ sra_accession }}-assembly-task
       docker_image: aiforearth2020/spades
-      command: bash -c "{SCRIPTS_DIR}/assembly.sh {{ sra_accession }}"
+      resource_files:
+        - blob_source: https://raw.githubusercontent.com/compmetagen/AIforEarth2020/master/shipyard/scripts/assemble.sh
+          file_path: assemble.sh
+      command: assembly.sh {{ sra_accession }}
       depends_on: 
         - {{ sra_accession }}-clean-task
+
+            

@@ -11,7 +11,7 @@ pool_specification:
   vm_size: STANDARD_E48_V3
   max_tasks_per_node: 1
   autoscale:
-    evaluation_interval: 00:15:00
+    evaluation_interval: 00:30:00
     scenario:
       name: active_tasks
       maximum_vm_count:
@@ -20,11 +20,3 @@ pool_specification:
       maximum_vm_increment_per_evaluation:
         dedicated: -1
         low_priority: -1
-  resource_files:
-    - blob_source: https://raw.githubusercontent.com/compmetagen/AIforEarth2020/master/shipyard/scripts/download.sh
-      file_path: scripts/download.sh
-    - blob_source: https://raw.githubusercontent.com/compmetagen/AIforEarth2020/master/shipyard/scripts/clean.sh
-      file_path: scripts/clean.sh
-    - blob_source: https://raw.githubusercontent.com/compmetagen/AIforEarth2020/master/shipyard/scripts/assemble.sh
-      file_path: scripts/assemble.sh
-      
