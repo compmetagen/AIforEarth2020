@@ -2,7 +2,7 @@
 
 #### Parameters:
 THREADS=40
-MEMORY=350
+MEMORY=350 # in GB
 #### End Parameters
 
 SAMPLES_DIR=${AZ_BATCH_NODE_SHARED_DIR}/aiforearth/samples
@@ -15,6 +15,7 @@ mkdir -p ${LOG_DIR}
 cp ${FASTQ_CLEAN_DIR}/*.fastq .
 
 if [ -f "${1}_2.fastq" ]; then
+
     spades.py \
         --meta \
         --only-assembler \
@@ -28,6 +29,8 @@ if [ -f "${1}_2.fastq" ]; then
     cp -r spades/. ${DATA_DIR}
     rm -r spades
     rm -rf ${1}*.fastq
+else
+    echo "SKIPPED"
 fi
 
 # copy logs

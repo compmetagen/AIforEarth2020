@@ -1,6 +1,6 @@
 # bbtools/bbmap
 
-## stats.sh example
+## Test
 
 ```sh
 docker run --rm spades spades.py --test
