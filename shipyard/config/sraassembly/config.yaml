@@ -15,3 +15,4 @@ global_resources:
     - aiforearth2020/sra-toolkit
     - aiforearth2020/bbtools
     - aiforearth2020/spades
+    - aiforearth2020/megahit

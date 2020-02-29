@@ -3,12 +3,14 @@ job_specifications:
   shared_data_volumes:
     - datablob_vol
   tasks:
+    
     - id: {{ sra_accession }}-download-task
       docker_image: aiforearth2020/sra-toolkit
       resource_files:
         - blob_source: https://raw.githubusercontent.com/compmetagen/AIforEarth2020/master/shipyard/scripts/download.sh
           file_path: download.sh
       command: /bin/bash download.sh {{ sra_accession }}
+
     - id: {{ sra_accession }}-clean-task
       docker_image: aiforearth2020/bbtools
       resource_files:
@@ -17,6 +19,7 @@ job_specifications:
       command: /bin/bash clean.sh {{ sra_accession }}
       depends_on:
         - {{ sra_accession }}-download-task
+
     - id: {{ sra_accession }}-spades-task
       docker_image: aiforearth2020/spades
       resource_files:
@@ -31,4 +34,17 @@ job_specifications:
             job_action: none
             dependency_action: satisfy
 
+    - id: {{ sra_accession }}-megahit-task
+      docker_image: aiforearth2020/megahit
+      resource_files:
+        - blob_source: https://raw.githubusercontent.com/compmetagen/AIforEarth2020/master/shipyard/scripts/assemble_megahit.sh
+          file_path: assemble_megahit.sh
+      command: /bin/bash assemble_megahit.sh {{ sra_accession }}
+      depends_on: 
+        - {{ sra_accession }}-spades-task
+      exit_conditions:
+        default:
+          exit_options:
+            job_action: none
+            dependency_action: satisfy
             
