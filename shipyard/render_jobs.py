@@ -6,8 +6,8 @@ from jinja2 import Environment, FileSystemLoader
 # Single-end HMP mock: https://www.ncbi.nlm.nih.gov/sra?linkname=bioproject_sra_all&from_uid=48475
 sra_accessions = ["SRR11126255", "SRX055381", "SRR11126257", "SRX055380"]
 
-template_dir = "config/sraassembly"
-jobs_dir = "jobs/sraassembly"
+template_dir = "config/pipeline"
+jobs_dir = "jobs/pipeline"
 
 env = Environment(loader = FileSystemLoader(template_dir))
 template = env.get_template("jobs.yaml")

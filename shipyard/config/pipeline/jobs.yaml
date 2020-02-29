@@ -1,5 +1,5 @@
 job_specifications:
-- id: {{ sra_accession }}-sraassembly-job
+- id: {{ sra_accession }}-pipeline-job
   shared_data_volumes:
     - datablob_vol
   tasks:

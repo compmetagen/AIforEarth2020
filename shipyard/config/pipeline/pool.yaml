@@ -1,5 +1,5 @@
 pool_specification:
-  id: sraassembly-pool
+  id: pipeline-pool
   vm_configuration:
     platform_image:
       publisher: Canonical
