@@ -17,14 +17,14 @@ job_specifications:
       command: /bin/bash clean.sh {{ sra_accession }}
       depends_on:
         - {{ sra_accession }}-download-task
-    - id: {{ sra_accession }}-assembly-task
+    - id: {{ sra_accession }}-spades-task
       docker_image: aiforearth2020/spades
       resource_files:
-        - blob_source: https://raw.githubusercontent.com/compmetagen/AIforEarth2020/master/shipyard/scripts/assemble.sh
+        - blob_source: https://raw.githubusercontent.com/compmetagen/AIforEarth2020/master/shipyard/scripts/assemble_spades.sh
           file_path: assemble.sh
       command: /bin/bash assemble_spades.sh {{ sra_accession }}
-      depends_on: 
-        - {{ sra_accession }}-clean-task
+     depends_on: 
+       - {{ sra_accession }}-clean-task
       exit_conditions:
         default:
           exit_options:

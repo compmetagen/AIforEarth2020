@@ -91,7 +91,7 @@ else
         threads=$THREADS
     rm noadapt.fastq
 
-    bduk.sh \
+    bbduk.sh \
         in=nocont.fastq \
         out=${1}.fastq \
         minavgquality=3 \
