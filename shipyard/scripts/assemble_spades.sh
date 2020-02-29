@@ -15,7 +15,9 @@ mkdir -p ${LOG_DIR}
 
 cp ${FASTQ_CLEAN_DIR}/*.fastq .
 
-if [ -f "${1}_2.fastq" ]; then
+if [ -f "${FASTQ_CLEAN_DIR}/${1}_2.fastq" ]; then
+
+    cp ${FASTQ_CLEAN_DIR}/*.fastq .
 
     spades.py \
         --meta \

@@ -14,9 +14,12 @@ SPADES_DATA_DIR=${SAMPLES_DIR}/${1}/data/spades
 mkdir -p ${DATA_DIR}
 mkdir -p ${LOG_DIR}
 
-cp ${FASTQ_CLEAN_DIR}/*.fastq .
 
-if [ -f "${1}_2.fastq" ] && [ ! -f "${SPADES_DATA_DIR}/scaffolds.fasta" ]; then
+if [ -f "${FASTQ_CLEAN_DIR}/${1}_2.fastq" ] && [ ! -f "${SPADES_DATA_DIR}/scaffolds.fasta" ]; then
+    # paired-end but skipped by spades
+
+    cp ${FASTQ_CLEAN_DIR}/*.fastq .
+
     megahit \
         -1 ${1}_1.fastq \
         -2 ${1}_2.fastq  \
@@ -32,7 +35,10 @@ if [ -f "${1}_2.fastq" ] && [ ! -f "${SPADES_DATA_DIR}/scaffolds.fasta" ]; then
     rm -r megahit
     rm -rf ${1}*.fastq
 
-elif [ -f "${1}.fastq" ]; then
+elif [ -f "${FASTQ_CLEAN_DIR}/${1}.fastq" ]; then 
+    # single-end
+
+    cp ${FASTQ_CLEAN_DIR}/${1}.fastq .
 
     megahit \
         -r ${1}.fastq \
