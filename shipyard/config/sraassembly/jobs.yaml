@@ -21,9 +21,9 @@ job_specifications:
       docker_image: aiforearth2020/spades
       resource_files:
         - blob_source: https://raw.githubusercontent.com/compmetagen/AIforEarth2020/master/shipyard/scripts/assemble_spades.sh
-          file_path: assemble.sh
+          file_path: assemble_spades.sh
       command: /bin/bash assemble_spades.sh {{ sra_accession }}
-     depends_on: 
+      depends_on: 
        - {{ sra_accession }}-clean-task
       exit_conditions:
         default:

@@ -5,8 +5,8 @@
 # and assemblyPipeline.sh in the BBMap package
 
 #### Parameters:
-THREADS=42
-MINLENGTH=120 
+THREADS=40
+MINLENGTH=100
 #### End Parameters
 
 SAMPLES_DIR=${AZ_BATCH_NODE_SHARED_DIR}/aiforearth/samples

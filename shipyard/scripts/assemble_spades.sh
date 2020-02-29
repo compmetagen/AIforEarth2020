@@ -1,7 +1,7 @@
 # assemble.sh SRA_ACCESSION
 
 #### Parameters:
-THREADS=32
+THREADS=40
 MEMORY=350
 #### End Parameters
 
@@ -20,12 +20,14 @@ if [ -f "${1}_2.fastq" ]; then
         --only-assembler \
         -1 ${1}_1.fastq \
         -2 ${1}_2.fastq  \
+        -k 21,33,55,77,99 \
         --threads $THREADS \
         --memory $MEMORY \
         -o spades
 
     cp -r spades/. ${DATA_DIR}
     rm -r spades
+    rm -rf ${1}*.fastq
 fi
 
 # copy logs
