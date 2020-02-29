@@ -26,7 +26,7 @@ if [ -f "${FASTQ_CLEAN_DIR}/${1}_2.fastq" ] && \
         -2 ${1}_2.fastq  \
         -t $THREADS \
         --k-min 27 \
-        --k-max 98 \
+        --k-max 99 \
         --k-step 14 \
         --kmin-1pass \
         --memory $MEMORY \
@@ -45,7 +45,7 @@ elif [ -f "${FASTQ_CLEAN_DIR}/${1}.fastq" ]; then
         -r ${1}.fastq \
         -t $THREADS \
         --k-min 27 \
-        --k-max 98 \
+        --k-max 99 \
         --k-step 14 \
         --kmin-1pass \
         --memory $MEMORY \
