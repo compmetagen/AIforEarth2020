@@ -22,7 +22,7 @@ if [ -f "${1}_2.fastq" ] && [ ! -f "${SPADES_DATA_DIR}/scaffolds.fasta" ]; then
         -2 ${1}_2.fastq  \
         -t $THREADS \
         --k-min 27 \
-        --k-max 97 \
+        --k-max 98 \
         --k-step 14 \
         --kmin-1pass \
         --memory $MEMORY \
@@ -38,7 +38,7 @@ elif [ -f "${1}.fastq" ]; then
         -r ${1}.fastq \
         -t $THREADS \
         --k-min 27 \
-        --k-max 97 \
+        --k-max 98 \
         --k-step 14 \
         --kmin-1pass \
         --memory $MEMORY \
