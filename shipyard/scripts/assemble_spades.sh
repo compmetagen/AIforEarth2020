@@ -6,12 +6,13 @@ MEMORY=350
 #### End Parameters
 
 SAMPLES_DIR=${AZ_BATCH_NODE_SHARED_DIR}/aiforearth/samples
+FASTQ_CLEAN_DIR=${SAMPLES_DIR}/${1}/fastq_clean
+DATA_DIR=${SAMPLES_DIR}/${1}/data/spades
+LOG_DIR=${SAMPLES_DIR}/${1}/logs/spades
 
-mkdir -p ${SAMPLES_DIR}/${1}/logs
-mkdir -p ${SAMPLES_DIR}/${1}/logs/assemble
-mkdir -p ${SAMPLES_DIR}/${1}/spades
-
-cp ${SAMPLES_DIR}/${1}/fastq_clean/*.fastq .
+mkdir -p ${DATA_DIR}
+mkdir -p ${LOG_DIR}
+cp ${FASTQ_CLEAN_DIR}/*.fastq .
 
 if [ -f "${1}_2.fastq" ]; then
     spades.py \
@@ -23,9 +24,9 @@ if [ -f "${1}_2.fastq" ]; then
         --memory $MEMORY \
         -o spades
 
-    cp -r spades/. ${SAMPLES_DIR}/${1}/spades
+    cp -r spades/. ${DATA_DIR}
     rm -r spades
 fi
 
 # copy logs
-cp ${AZ_BATCH_TASK_DIR}/std???.txt ${SAMPLES_DIR}/${1}/logs/assemble
+cp ${AZ_BATCH_TASK_DIR}/std???.txt ${LOG_DIR}

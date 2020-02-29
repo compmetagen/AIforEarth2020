@@ -22,8 +22,13 @@ job_specifications:
       resource_files:
         - blob_source: https://raw.githubusercontent.com/compmetagen/AIforEarth2020/master/shipyard/scripts/assemble.sh
           file_path: assemble.sh
-      command: /bin/bash assemble.sh {{ sra_accession }}
+      command: /bin/bash assemble_spades.sh {{ sra_accession }}
       depends_on: 
         - {{ sra_accession }}-clean-task
+      exit_conditions:
+        default:
+          exit_options:
+            job_action: none
+            dependency_action: satisfy
 
             
