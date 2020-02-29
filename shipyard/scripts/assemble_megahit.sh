@@ -16,7 +16,7 @@ mkdir -p ${LOG_DIR}
 cp ${FASTQ_CLEAN_DIR}/*.fastq .
 
 if [ -f "${1}_2.fastq" ] && [ ! -f "${SPADES_DATA_DIR}/scaffolds.fasta" ]; then
-    megahit 
+    megahit \
         -1 ${1}_1.fastq \
         -2 ${1}_2.fastq  \
         --threads $THREADS \
@@ -33,7 +33,7 @@ if [ -f "${1}_2.fastq" ] && [ ! -f "${SPADES_DATA_DIR}/scaffolds.fasta" ]; then
 
 elif [ -f "${1}.fastq" ]; then
 
-    megahit 
+    megahit \
         -r ${1}.fastq \
         --threads $THREADS \
         --k-min 27 \
