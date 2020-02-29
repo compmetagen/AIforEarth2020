@@ -15,7 +15,8 @@ mkdir -p ${DATA_DIR}
 mkdir -p ${LOG_DIR}
 
 
-if [ -f "${FASTQ_CLEAN_DIR}/${1}_2.fastq" ] && [ ! -f "${SPADES_DATA_DIR}/scaffolds.fasta" ]; then
+if [ -f "${FASTQ_CLEAN_DIR}/${1}_2.fastq" ] && \
+   [ ! -f "${SPADES_DATA_DIR}/scaffolds.fasta" ]; then
     # paired-end but skipped by spades
 
     cp ${FASTQ_CLEAN_DIR}/*.fastq .
