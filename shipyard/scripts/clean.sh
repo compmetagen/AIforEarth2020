@@ -6,7 +6,7 @@
 
 #### Parameters:
 THREADS=40
-MINLENGTH=100
+MINLENGTH=50
 #### End Parameters
 
 SAMPLES_DIR=${AZ_BATCH_NODE_SHARED_DIR}/aiforearth/samples
