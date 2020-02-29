@@ -11,9 +11,9 @@ DATA_DIR=${SAMPLES_DIR}/${1}/data/megahit
 LOG_DIR=${SAMPLES_DIR}/${1}/logs/megahit
 SPADES_DATA_DIR=${SAMPLES_DIR}/${1}/data/spades
 
-rm -rf ${DATA_DIR} ${LOG_DIR}
 mkdir -p ${DATA_DIR}
 mkdir -p ${LOG_DIR}
+
 cp ${FASTQ_CLEAN_DIR}/*.fastq .
 
 if [ -f "${1}_2.fastq" ] && [ ! -f "${SPADES_DATA_DIR}/scaffolds.fasta" ]; then

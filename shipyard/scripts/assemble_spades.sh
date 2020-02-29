@@ -10,9 +10,9 @@ FASTQ_CLEAN_DIR=${SAMPLES_DIR}/${1}/data/fastq_clean
 DATA_DIR=${SAMPLES_DIR}/${1}/data/spades
 LOG_DIR=${SAMPLES_DIR}/${1}/logs/spades
 
-rm -rf ${DATA_DIR} ${LOG_DIR}
 mkdir -p ${DATA_DIR}
 mkdir -p ${LOG_DIR}
+
 cp ${FASTQ_CLEAN_DIR}/*.fastq .
 
 if [ -f "${1}_2.fastq" ]; then
