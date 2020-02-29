@@ -10,7 +10,7 @@ MINLENGTH=120
 #### End Parameters
 
 SAMPLES_DIR=${AZ_BATCH_NODE_SHARED_DIR}/aiforearth/samples
-FASTQ_DIR=${SAMPLES_DIR}/${1}/fastq
+FASTQ_DIR=${SAMPLES_DIR}/${1}/data/fastq
 DATA_DIR=${SAMPLES_DIR}/${1}/data/fastq_clean
 LOG_DIR=${SAMPLES_DIR}/${1}/logs/fastq_clean
 

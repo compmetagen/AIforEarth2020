@@ -6,7 +6,7 @@ MEMORY=350
 #### End Parameters
 
 SAMPLES_DIR=${AZ_BATCH_NODE_SHARED_DIR}/aiforearth/samples
-FASTQ_CLEAN_DIR=${SAMPLES_DIR}/${1}/fastq_clean
+FASTQ_CLEAN_DIR=${SAMPLES_DIR}/${1}/data/fastq_clean
 DATA_DIR=${SAMPLES_DIR}/${1}/data/spades
 LOG_DIR=${SAMPLES_DIR}/${1}/logs/spades
 
