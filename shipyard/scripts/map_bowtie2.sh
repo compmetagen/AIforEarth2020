@@ -46,7 +46,7 @@ cp map.sam ${DATA_DIR}
 rm -rf ${1}*.fastq
 rm -rf map.sam
 rm -rf contigs.fasta
-rm -rf bowtiedb
+rm -rf bowtie2db
 
 # copy logs
 cp ${AZ_BATCH_TASK_DIR}/std???.txt ${LOG_DIR}
