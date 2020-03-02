@@ -8,7 +8,7 @@ MAX_MEM_PER_THREAD=8G # remember the G suffix (for giga)
 SAMPLES_DIR=${AZ_BATCH_NODE_SHARED_DIR}/aiforearth/samples
 FASTQ_CLEAN_DIR=${SAMPLES_DIR}/${1}/data/fastq_clean
 
-DATA_DIR=${SAMPLES_DIR}/${1}/data/map
+DATA_DIR=${SAMPLES_DIR}/${1}/data/map/
 LOG_DIR=${SAMPLES_DIR}/${1}/logs/map/samtools
 
 mkdir -p ${DATA_DIR}
@@ -19,10 +19,10 @@ if [ -f "${DATA_DIR}/map.bam" ]; then
     exit 0
 fi
 
-cp $OUT_DIR/align.sam .
+cp $OUT_DIR/map.sam .
 samtools sort -@ ${THREADS} -m ${MAX_MEM_PER_THREAD} -o map.bam map.sam
-rm -rf align.sam
-rm -rf $OUT_DIR/align.sam
+rm -rf map.sam
+rm -rf $OUT_DIR/map.sam
 cp map.bam ${DATA_DIR}
 
 # copy logs

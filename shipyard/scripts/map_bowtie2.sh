@@ -29,22 +29,24 @@ else
     exit 1
 fi
 
-bowtie2-build --threads $THREADS contigs.fasta contigs
+mkdir -p bowtie2db
+bowtie2-build --threads $THREADS contigs.fasta bowtie2db/contigs
 
 cp ${FASTQ_CLEAN_DIR}/*.fastq .
 if [ -f "${1}_2.fastq" ]; then  
-    bowtie2 -x contigs -1 ${1}_1.fastq -2 ${1}_2.fastq --threads $THREADS -S map.sam
+    bowtie2 -x bowtie2db/contigs -1 ${1}_1.fastq -2 ${1}_2.fastq --threads $THREADS -S map.sam
 elif [ -f "${1}.fastq" ]; then 
-    bowtie2 -x contigs -U ${1}.fastq --threads $THREADS -S map.sam
+    bowtie2 -x bowtie2db/contigs -U ${1}.fastq --threads $THREADS -S map.sam
 else
     >&2 echo "No FASTQ files available"
     exit 1
 fi
 
 cp map.sam ${DATA_DIR}
+rm -rf ${1}*.fastq
 rm -rf map.sam
 rm -rf contigs.fasta
-rm -rf contigs
+rm -rf bowtiedb
 
 # copy logs
 cp ${AZ_BATCH_TASK_DIR}/std???.txt ${LOG_DIR}
