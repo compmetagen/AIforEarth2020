@@ -19,10 +19,10 @@ if [ -f "${DATA_DIR}/map.bam" ]; then
     exit 0
 fi
 
-cp $OUT_DIR/map.sam .
+cp ${OUT_DIR}/map.sam .
 samtools sort -@ ${THREADS} -m ${MAX_MEM_PER_THREAD} -o map.bam map.sam
 rm -rf map.sam
-rm -rf $OUT_DIR/map.sam
+rm -rf ${OUT_DIR}/map.sam
 cp map.bam ${DATA_DIR}
 
 # copy logs
