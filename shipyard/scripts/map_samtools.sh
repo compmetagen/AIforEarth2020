@@ -21,8 +21,8 @@ fi
 
 cp ${DATA_DIR}/map.sam .
 samtools sort -@ ${THREADS} -m ${MAX_MEM_PER_THREAD} -o map.bam map.sam
-rm -rf map.sam
 cp map.bam ${DATA_DIR}
+rm -rf map.?am
 rm -rf ${DATA_DIR}/map.sam
 
 # copy logs

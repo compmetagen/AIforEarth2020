@@ -17,7 +17,7 @@ mkdir -p ${DATA_DIR}
 mkdir -p ${LOG_DIR}
 
 
-if [ -d "${DATA_DIR}/bins" ]; then
+if [ -f "${DATA_DIR}/bins/${1}.bin.fa" ]; then
     exit 0
 fi
 
