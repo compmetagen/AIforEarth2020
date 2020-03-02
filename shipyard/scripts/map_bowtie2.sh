@@ -38,7 +38,7 @@ if [ -f "${1}_2.fastq" ]; then
 elif [ -f "${1}.fastq" ]; then 
     bowtie2 -x bowtie2db/contigs -U ${1}.fastq --threads $THREADS -S map.sam
 else
-    >&2 echo "No FASTQ files available"
+    >&2 echo "No FASTQ file available"
     exit 1
 fi
 
