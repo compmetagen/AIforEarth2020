@@ -47,4 +47,30 @@ job_specifications:
           exit_options:
             job_action: none
             dependency_action: satisfy
-            
+    
+    - id: {{ sra_accession }}-map-bowtie2-task
+      docker_image: aiforearth2020/bowtie2
+      resource_files:
+        - blob_source: https://raw.githubusercontent.com/compmetagen/AIforEarth2020/master/shipyard/scripts/map_bowtie2.sh
+          file_path: map_bowtie2.sh
+      command: /bin/bash map_bowtie2.sh {{ sra_accession }}
+      depends_on: 
+        - {{ sra_accession }}-megahit-task
+    
+    - id: {{ sra_accession }}-map-samtools-task
+      docker_image: aiforearth2020/htslib
+      resource_files:
+        - blob_source: https://raw.githubusercontent.com/compmetagen/AIforEarth2020/master/shipyard/scripts/map_samtools.sh
+          file_path: map_samtools.sh
+      command: /bin/bash map_samtools.sh {{ sra_accession }}
+      depends_on: 
+        - {{ sra_accession }}-map-bowtie2-task
+    
+    - id: {{ sra_accession }}-bin-task
+      docker_image: aiforearth2020/htslib
+      resource_files:
+        - blob_source: https://raw.githubusercontent.com/compmetagen/AIforEarth2020/master/shipyard/scripts/bin.sh
+          file_path: bin.sh
+      command: /bin/bash bin.sh {{ sra_accession }}
+      depends_on: 
+        - {{ sra_accession }}-map-samtools-task

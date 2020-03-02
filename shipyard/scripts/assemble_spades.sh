@@ -7,11 +7,17 @@ MEMORY=350 # in GB
 
 SAMPLES_DIR=${AZ_BATCH_NODE_SHARED_DIR}/aiforearth/samples
 FASTQ_CLEAN_DIR=${SAMPLES_DIR}/${1}/data/fastq_clean
+
 DATA_DIR=${SAMPLES_DIR}/${1}/data/spades
 LOG_DIR=${SAMPLES_DIR}/${1}/logs/spades
 
 mkdir -p ${DATA_DIR}
 mkdir -p ${LOG_DIR}
+
+
+if [ -f "${DATA_DIR}/scaffolds.fasta" ]; then
+    exit 0
+fi
 
 cp ${FASTQ_CLEAN_DIR}/*.fastq .
 
@@ -30,7 +36,7 @@ if [ -f "${FASTQ_CLEAN_DIR}/${1}_2.fastq" ]; then
         -o spades
 
     cp -r spades/. ${DATA_DIR}
-    rm -r spades
+    rm -rf spades
     rm -rf ${1}*.fastq
 else
     echo "SKIPPED"

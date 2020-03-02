@@ -17,6 +17,11 @@ LOG_DIR=${SAMPLES_DIR}/${1}/logs/fastq_clean
 mkdir -p ${DATA_DIR}
 mkdir -p ${LOG_DIR}
 
+
+if [ -f "${DATA_DIR}/${1}.fastq" ] || [ -f "${DATA_DIR}/${1}_2.fastq" ] ; then
+    exit 0
+fi
+
 cp ${FASTQ_DIR}/*.fastq .
 
 if [ -f "${1}_2.fastq" ]; then

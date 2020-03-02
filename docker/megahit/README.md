@@ -1,4 +1,4 @@
-# bbtools/bbmap
+# megahit
 
 ## Test
 

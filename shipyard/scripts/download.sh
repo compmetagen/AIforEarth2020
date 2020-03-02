@@ -11,6 +11,11 @@ LOG_DIR=${SAMPLES_DIR}/${1}/logs/download
 mkdir -p ${DATA_DIR}
 mkdir -p ${LOG_DIR}
 
+
+if [ -f "${DATA_DIR}/${1}.fastq" ] || [ -f "${DATA_DIR}/${1}_2.fastq" ] ; then
+    exit 0
+fi
+
 fasterq-dump ${1} --threads $THREADS -O .
 cp ${1}*.fastq ${DATA_DIR}
 rm -rf ${1}*.fastq

@@ -1,4 +1,4 @@
-# bbtools/bbmap
+# spades
 
 ## Test
 
