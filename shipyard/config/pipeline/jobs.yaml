@@ -67,7 +67,7 @@ job_specifications:
         - {{ sra_accession }}-map-bowtie2-task
     
     - id: {{ sra_accession }}-bin-task
-      docker_image: aiforearth2020/htslib
+      docker_image: aiforearth2020/metabat2
       resource_files:
         - blob_source: https://raw.githubusercontent.com/compmetagen/AIforEarth2020/master/shipyard/scripts/bin.sh
           file_path: bin.sh

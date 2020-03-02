@@ -16,3 +16,6 @@ global_resources:
     - aiforearth2020/bbtools
     - aiforearth2020/spades
     - aiforearth2020/megahit
+    - aiforearth2020/bowtie2
+    - aiforearth2020/htslib
+    - aiforearth2020/metabat2
