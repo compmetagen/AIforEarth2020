@@ -19,4 +19,4 @@ global_resources:
     - aiforearth2020/bowtie2
     - aiforearth2020/htslib
     - aiforearth2020/metabat2
-    
+    - aiforearth2020/checkm
