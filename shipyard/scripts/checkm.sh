@@ -19,7 +19,7 @@ mkdir -p ${LOG_DIR}
 #fi
 
 
-cp -r ${DATA_DIR}/bins/ .
+cp -r ${METABAT2_DATA_DIR}/bins/ .
 
 checkm lineage_wf -t $THREADS -x fa bins checkm
 
