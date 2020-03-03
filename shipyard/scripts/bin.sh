@@ -17,7 +17,7 @@ mkdir -p ${DATA_DIR}
 mkdir -p ${LOG_DIR}
 
 
-if [ -f "${DATA_DIR}/bins/${1}.bin.fa" ]; then
+if [ -f "${DATA_DIR}/bins/${1}.bin.1.fa" ]; then
     exit 0
 fi
 
@@ -34,7 +34,7 @@ cp ${MAP_DATA_DIR}/map.bam .
 mkdir -p bins
 
 jgi_summarize_bam_contig_depths --outputDepth depth.txt map.bam
-metabat2 -i contigs.fasta -a depth.txt -o bins/${1} -v -t $THREADS -m $MIN_CONTIG_SIZE
+metabat2 -i contigs.fasta -a depth.txt -o bins/${1}.bin -v -t $THREADS -m $MIN_CONTIG_SIZE
 
 cp -r bins ${DATA_DIR}
 cp depth.txt ${DATA_DIR}

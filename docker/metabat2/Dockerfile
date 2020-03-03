@@ -14,11 +14,13 @@ WORKDIR /usr/local/metabat2
 RUN curl -s -L https://bitbucket.org/berkeleylab/metabat/downloads/metabat-static-binary-linux-x64_v${VERSION}.tar.gz | \
     tar -zxf - --strip-components=1
 # metabat2 excutables are not r-x for all, this causes problems in azure/shipyard
-RUN chmod +rx /usr/local/metabat2/metabat* \
+RUN chmod +rx \
+  metabat* \
+  runMetaBat.sh \
   jgi_summarize_bam_contig_depths \
   contigOverlaps \
   aggregateContigOverlapsByBin.pl \
-  aggregateBinDepths.pl
+  aggregateBinDepths.pl  
 WORKDIR /
 ENV PATH="/usr/local/metabat2:${PATH}"
 
