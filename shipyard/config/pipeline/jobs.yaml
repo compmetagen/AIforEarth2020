@@ -74,3 +74,12 @@ job_specifications:
       command: /bin/bash bin.sh {{ sra_accession }}
       depends_on: 
         - {{ sra_accession }}-map-samtools-task
+    
+    - id: {{ sra_accession }}-checkm-task
+      docker_image: aiforearth2020/checkm
+      resource_files:
+        - blob_source: https://raw.githubusercontent.com/compmetagen/AIforEarth2020/master/shipyard/scripts/checkm.sh
+          file_path: checkm.sh
+      command: /bin/bash checkm.sh {{ sra_accession }}
+      depends_on: 
+        - {{ sra_accession }}-bin-task
