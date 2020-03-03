@@ -1,6 +1,7 @@
-# metabat2
+# checkm
 
-## Show the help message
+## Test
 
 ```sh
-docker run --rm metabat2 metabat2 -h
+docker run --rm checkm checkm test ~/checkm_test_results
+```

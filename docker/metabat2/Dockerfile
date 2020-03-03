@@ -15,6 +15,7 @@ RUN curl -s -L https://bitbucket.org/berkeleylab/metabat/downloads/metabat-stati
     tar -zxf - --strip-components=1
 # metabat2 excutables are not r-x for all, this causes problems in azure/shipyard
 RUN chmod +rx \
+  /usr/local/metabat2 \
   metabat* \
   runMetaBat.sh \
   jgi_summarize_bam_contig_depths \

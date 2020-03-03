@@ -5,6 +5,8 @@ ENV LANG=C.UTF-8
 ENV PRODIGAL_VERSION=1:2.6.3-4
 ENV HMMER_VERSION=3.2.1+dfsg-1
 ENV PPLACER_VERSION=1.1.alpha19
+# checkm version
+ENV VERSION=1.1.2
 
 RUN apt-get update
 
@@ -32,7 +34,8 @@ WORKDIR /
 ENV PATH="/usr/local/pplacer:${PATH}"
 
 RUN pip3 install Cython
-RUN pip3 install numpy matplotlib pysam checkm-genome
+RUN pip3 install numpy matplotlib pysam "checkm-genome== ${VERSION}"
+RUN checkm data setRoot /usr/local/checkm_data
 
 RUN rm -rf /tmp/* \
   && rm -rf /var/lib/apt/lists/*
