@@ -21,7 +21,7 @@ fi
 cp -r ${METABAT2_DATA_DIR}/bins/ .
 
 checkm lineage_wf -t $THREADS -x fa bins checkm
-checkm qa -t $THREADS -o 2 checkm/lineage.ms checkm > checkm/qa.txt
+checkm qa -t $THREADS checkm/lineage.ms checkm -o 2 -f checkm/qa.txt
 
 cp -r checkm/. ${DATA_DIR}
 rm -rf bins checkm
