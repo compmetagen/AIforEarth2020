@@ -14,15 +14,14 @@ mkdir -p ${DATA_DIR}
 mkdir -p ${LOG_DIR}
 
 
-#if [ -f "${DATA_DIR}/bins/${1}.bin.1.fa" ]; then
-#    exit 0
-#fi
-
+if [ -f "${DATA_DIR}/qa.txt" ]; then
+    exit 0
+fi
 
 cp -r ${METABAT2_DATA_DIR}/bins/ .
 
 checkm lineage_wf -t $THREADS -x fa bins checkm
-checkm qa -t $THREADS -o 2 checkm/lineage.ms checkm
+checkm qa -t $THREADS -o 2 checkm/lineage.ms checkm > checkm/qa.txt
 
 cp -r checkm/. ${DATA_DIR}
 rm -rf bins checkm
