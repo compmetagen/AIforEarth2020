@@ -22,6 +22,7 @@ mkdir -p ${LOG_DIR}
 cp -r ${METABAT2_DATA_DIR}/bins/ .
 
 checkm lineage_wf -t $THREADS -x fa bins checkm
+checkm qa -t $THREADS -o 2 checkm/lineage.ms checkm
 
 cp -r checkm/. ${DATA_DIR}
 rm -rf bins checkm

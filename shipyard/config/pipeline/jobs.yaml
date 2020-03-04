@@ -75,11 +75,13 @@ job_specifications:
       depends_on: 
         - {{ sra_accession }}-map-samtools-task
     
-    - id: {{ sra_accession }}-checkm-task
+    - id: {{ sra_accession }}-prok-qual-task
       docker_image: aiforearth2020/checkm
       resource_files:
-        - blob_source: https://raw.githubusercontent.com/compmetagen/AIforEarth2020/master/shipyard/scripts/checkm.sh
-          file_path: checkm.sh
-      command: /bin/bash checkm.sh {{ sra_accession }}
+        - blob_source: https://raw.githubusercontent.com/compmetagen/AIforEarth2020/master/shipyard/scripts/prok_qual.sh
+          file_path: prok_qual.sh
+        - blob_source: https://raw.githubusercontent.com/compmetagen/AIforEarth2020/master/shipyard/scripts/checkm_mimag.py
+          file_path: checkm_mimag.py
+      command: /bin/bash prok_qual.sh {{ sra_accession }}
       depends_on: 
         - {{ sra_accession }}-bin-task
