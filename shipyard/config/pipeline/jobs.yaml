@@ -80,8 +80,17 @@ job_specifications:
       resource_files:
         - blob_source: https://raw.githubusercontent.com/compmetagen/AIforEarth2020/master/shipyard/scripts/prok_qual.sh
           file_path: prok_qual.sh
-        - blob_source: https://raw.githubusercontent.com/compmetagen/AIforEarth2020/master/shipyard/scripts/checkm_mimag.py
-          file_path: checkm_mimag.py
       command: /bin/bash prok_qual.sh {{ sra_accession }}
       depends_on: 
         - {{ sra_accession }}-bin-task
+    
+    - id: {{ sra_accession }}-prok-mimag-task
+      docker_image: aiforearth2020/utils
+      resource_files:
+        - blob_source: https://raw.githubusercontent.com/compmetagen/AIforEarth2020/master/shipyard/scripts/prok_mimag.sh
+          file_path: prok_mimag.sh
+        - blob_source: https://raw.githubusercontent.com/compmetagen/AIforEarth2020/master/shipyard/scripts/checkm_mimag.py
+          file_path: checkm_mimag.py
+      command: /bin/bash prok_mimag.sh {{ sra_accession }}
+      depends_on: 
+        - {{ sra_accession }}-prok-qual-task

@@ -1,4 +1,4 @@
-# bin.sh SRA_ACCESSION
+# prok_qual.sh SRA_ACCESSION
 
 #### Parameters:
 THREADS=24
