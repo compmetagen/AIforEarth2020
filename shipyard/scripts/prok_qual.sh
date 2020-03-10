@@ -1,7 +1,7 @@
 # prok_qual.sh SRA_ACCESSION
 
 #### Parameters:
-THREADS=24
+THREADS=32
 #### End Parameters
 
 SAMPLES_DIR=${AZ_BATCH_NODE_SHARED_DIR}/aiforearth/samples

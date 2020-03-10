@@ -4,8 +4,8 @@ SAMPLES_DIR=${AZ_BATCH_NODE_SHARED_DIR}/aiforearth/samples
 METABAT2_DATA_DIR=${SAMPLES_DIR}/${1}/data/metabat2
 CHECKM_DATA_DIR=${SAMPLES_DIR}/${1}/data/checkm
 
-DATA_DIR=${SAMPLES_DIR}/${1}/data/prok_mimag
-LOG_DIR=${SAMPLES_DIR}/${1}/logs/prok_mimag
+DATA_DIR=${SAMPLES_DIR}/${1}/data/checkm_mimag
+LOG_DIR=${SAMPLES_DIR}/${1}/logs/checkm_mimag
 
 mkdir -p ${DATA_DIR}
 mkdir -p ${LOG_DIR}

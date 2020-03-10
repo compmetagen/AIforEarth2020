@@ -12,6 +12,7 @@ global_resources:
           - --use-https=true
         bind_options: rw
   docker_images:
+    - aiforearth2020/utils
     - aiforearth2020/sra-toolkit
     - aiforearth2020/bbtools
     - aiforearth2020/spades
