@@ -1,7 +1,7 @@
 # prok_qual.sh SRA_ACCESSION
 
 #### Parameters:
-THREADS=32
+THREADS=28
 #### End Parameters
 
 SAMPLES_DIR=${AZ_BATCH_NODE_SHARED_DIR}/data/samples

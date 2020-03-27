@@ -1,7 +1,7 @@
 # assemble.sh SRA_ACCESSION
 
 #### Parameters:
-THREADS=40
+THREADS=28
 MEMORY=0.9 # fraction available memory
 #### End Parameters
 

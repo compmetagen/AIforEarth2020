@@ -1,8 +1,8 @@
 # assemble.sh SRA_ACCESSION
 
 #### Parameters:
-THREADS=40
-MEMORY=350 # in GB
+THREADS=28
+MEMORY=240 # in GB
 #### End Parameters
 
 SAMPLES_DIR=${AZ_BATCH_NODE_SHARED_DIR}/data/samples

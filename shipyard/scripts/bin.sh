@@ -1,7 +1,7 @@
 # bin.sh SRA_ACCESSION
 
 #### Parameters:
-THREADS=40
+THREADS=28
 MIN_CONTIG_SIZE=2500
 #### End Parameters
 
