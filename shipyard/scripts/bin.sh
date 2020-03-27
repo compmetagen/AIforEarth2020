@@ -5,17 +5,21 @@ THREADS=40
 MIN_CONTIG_SIZE=2500
 #### End Parameters
 
-SAMPLES_DIR=${AZ_BATCH_NODE_SHARED_DIR}/aiforearth/samples
-MAP_DATA_DIR=${SAMPLES_DIR}/${1}/data/map
+SAMPLES_DIR=${AZ_BATCH_NODE_SHARED_DIR}/data/samples
+MAP_BOWTIE2_DATA_DIR=${SAMPLES_DIR}/${1}/data/map_bowtie2
 SPADES_DATA_DIR=${SAMPLES_DIR}/${1}/data/spades
 MEGAHIT_DATA_DIR=${SAMPLES_DIR}/${1}/data/megahit
 
 DATA_DIR=${SAMPLES_DIR}/${1}/data/metabat2
 LOG_DIR=${SAMPLES_DIR}/${1}/logs/metabat2
 
+
+if [ "$CLEAN" = true ]; then
+    rm -rf ${DATA_DIR} ${LOG_DIR}
+fi
+
 mkdir -p ${DATA_DIR}
 mkdir -p ${LOG_DIR}
-
 
 if [ -f "${DATA_DIR}/bins/${1}.bin.1.fa" ]; then
     exit 0
@@ -30,7 +34,7 @@ else
     exit 1
 fi
 
-cp ${MAP_DATA_DIR}/map.bam .
+cp ${MAP_BOWTIE2_DATA_DIR}/map.bam .
 mkdir -p bins
 
 jgi_summarize_bam_contig_depths --outputDepth depth.txt map.bam

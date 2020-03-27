@@ -4,15 +4,19 @@
 THREADS=32
 #### End Parameters
 
-SAMPLES_DIR=${AZ_BATCH_NODE_SHARED_DIR}/aiforearth/samples
+SAMPLES_DIR=${AZ_BATCH_NODE_SHARED_DIR}/data/samples
 METABAT2_DATA_DIR=${SAMPLES_DIR}/${1}/data/metabat2
 
 DATA_DIR=${SAMPLES_DIR}/${1}/data/checkm
 LOG_DIR=${SAMPLES_DIR}/${1}/logs/checkm
 
+
+if [ "$CLEAN" = true ]; then
+    rm -rf ${DATA_DIR} ${LOG_DIR}
+fi
+
 mkdir -p ${DATA_DIR}
 mkdir -p ${LOG_DIR}
-
 
 if [ -f "${DATA_DIR}/qa.txt" ]; then
     exit 0

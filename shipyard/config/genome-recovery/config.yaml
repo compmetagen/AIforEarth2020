@@ -1,0 +1,23 @@
+batch_shipyard:
+  storage_account_settings: shipyard
+global_resources:
+  volumes:
+    shared_data_volumes:
+      datablob_vol:
+        volume_driver: azureblob
+        storage_account_settings: data
+        azure_blob_container_name: data
+        container_path: ${AZ_BATCH_NODE_SHARED_DIR}/data
+        mount_options:
+          - --use-https=true
+        bind_options: rw
+  docker_images:
+    - aiforearth2020.azurecr.io/utils
+    - aiforearth2020.azurecr.io/sra-toolkit
+    - aiforearth2020.azurecr.io/bbtools
+    - aiforearth2020.azurecr.io/spades
+    - aiforearth2020.azurecr.io/megahit
+    - aiforearth2020.azurecr.io/bowtie2
+    - aiforearth2020.azurecr.io/htslib
+    - aiforearth2020.azurecr.io/metabat2
+    - aiforearth2020.azurecr.io/checkm

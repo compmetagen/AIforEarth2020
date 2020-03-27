@@ -4,15 +4,19 @@
 THREADS=32
 #### End Parameters
 
-SAMPLES_DIR=${AZ_BATCH_NODE_SHARED_DIR}/aiforearth/samples
+SAMPLES_DIR=${AZ_BATCH_NODE_SHARED_DIR}/data/samples
 CHECKM_MIMAG_DIR=${SAMPLES_DIR}/${1}/data/checkm_mimag
 
 DATA_DIR=${SAMPLES_DIR}/${1}/data/gtdbtk
 LOG_DIR=${SAMPLES_DIR}/${1}/logs/gtdbtk
 
+
+if [ "$CLEAN" = true ]; then
+    rm -rf ${DATA_DIR} ${LOG_DIR}
+fi
+
 mkdir -p ${DATA_DIR}
 mkdir -p ${LOG_DIR}
-
 
 if [ -f "${DATA_DIR}/${1}.bac120.summary.tsv" ] || [ -f "${DATA_DIR}/${1}.ar122.summary.tsv" ]; then
     exit 0

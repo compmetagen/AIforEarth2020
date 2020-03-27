@@ -4,13 +4,17 @@
 THREADS=8
 #### End Parameters
 
-SAMPLES_DIR=${AZ_BATCH_NODE_SHARED_DIR}/aiforearth/samples
+SAMPLES_DIR=${AZ_BATCH_NODE_SHARED_DIR}/data/samples
 DATA_DIR=${SAMPLES_DIR}/${1}/data/fastq
 LOG_DIR=${SAMPLES_DIR}/${1}/logs/download
 
+
+if [ "$CLEAN" = true ]; then
+    rm -rf ${DATA_DIR} ${LOG_DIR}
+fi
+
 mkdir -p ${DATA_DIR}
 mkdir -p ${LOG_DIR}
-
 
 if [ -f "${DATA_DIR}/${1}.fastq" ] || [ -f "${DATA_DIR}/${1}_2.fastq" ] ; then
     exit 0

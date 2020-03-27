@@ -1,0 +1,97 @@
+job_specifications:
+- id: {{ sra_accession }}-genome-recovery-job
+  shared_data_volumes:
+    - datablob_vol
+  environment_variables:
+    CLEAN: false
+  tasks:
+    - id: {{ sra_accession }}-download-task
+      docker_image: aiforearth2020.azurecr.io/sra-toolkit
+      resource_files:
+        - blob_source: https://raw.githubusercontent.com/compmetagen/AIforEarth2020/master/shipyard/scripts/download.sh
+          file_path: download.sh
+      command: /bin/bash download.sh {{ sra_accession }}
+
+    - id: {{ sra_accession }}-clean-task
+      docker_image: aiforearth2020.azurecr.io/bbtools
+      resource_files:
+        - blob_source: https://raw.githubusercontent.com/compmetagen/AIforEarth2020/master/shipyard/scripts/clean.sh
+          file_path: clean.sh
+      command: /bin/bash clean.sh {{ sra_accession }}
+      depends_on:
+        - {{ sra_accession }}-download-task
+
+    - id: {{ sra_accession }}-spades-task
+      docker_image: aiforearth2020.azurecr.io/spades
+      resource_files:
+        - blob_source: https://raw.githubusercontent.com/compmetagen/AIforEarth2020/master/shipyard/scripts/assemble_spades.sh
+          file_path: assemble_spades.sh
+      command: /bin/bash assemble_spades.sh {{ sra_accession }}
+      depends_on: 
+       - {{ sra_accession }}-clean-task
+      exit_conditions:
+        default:
+          exit_options:
+            job_action: none
+            dependency_action: satisfy
+
+    - id: {{ sra_accession }}-megahit-task
+      docker_image: aiforearth2020.azurecr.io/megahit
+      resource_files:
+        - blob_source: https://raw.githubusercontent.com/compmetagen/AIforEarth2020/master/shipyard/scripts/assemble_megahit.sh
+          file_path: assemble_megahit.sh
+      command: /bin/bash assemble_megahit.sh {{ sra_accession }}
+      depends_on: 
+        - {{ sra_accession }}-spades-task
+      exit_conditions:
+        default:
+          exit_options:
+            job_action: none
+            dependency_action: satisfy
+    
+    - id: {{ sra_accession }}-map-bowtie2-task
+      docker_image: aiforearth2020.azurecr.io/bowtie2
+      resource_files:
+        - blob_source: https://raw.githubusercontent.com/compmetagen/AIforEarth2020/master/shipyard/scripts/map_bowtie2.sh
+          file_path: map_bowtie2.sh
+      command: /bin/bash map_bowtie2.sh {{ sra_accession }}
+      depends_on: 
+        - {{ sra_accession }}-megahit-task
+    
+    - id: {{ sra_accession }}-map-samtools-task
+      docker_image: aiforearth2020.azurecr.io/htslib
+      resource_files:
+        - blob_source: https://raw.githubusercontent.com/compmetagen/AIforEarth2020/master/shipyard/scripts/map_samtools.sh
+          file_path: map_samtools.sh
+      command: /bin/bash map_samtools.sh {{ sra_accession }}
+      depends_on: 
+        - {{ sra_accession }}-map-bowtie2-task
+    
+    - id: {{ sra_accession }}-bin-task
+      docker_image: aiforearth2020.azurecr.io/metabat2
+      resource_files:
+        - blob_source: https://raw.githubusercontent.com/compmetagen/AIforEarth2020/master/shipyard/scripts/bin.sh
+          file_path: bin.sh
+      command: /bin/bash bin.sh {{ sra_accession }}
+      depends_on: 
+        - {{ sra_accession }}-map-samtools-task
+    
+    - id: {{ sra_accession }}-prok-qual-task
+      docker_image: aiforearth2020.azurecr.io/checkm
+      resource_files:
+        - blob_source: https://raw.githubusercontent.com/compmetagen/AIforEarth2020/master/shipyard/scripts/prok_qual.sh
+          file_path: prok_qual.sh
+      command: /bin/bash prok_qual.sh {{ sra_accession }}
+      depends_on: 
+        - {{ sra_accession }}-bin-task
+    
+    - id: {{ sra_accession }}-prok-mimag-task
+      docker_image: aiforearth2020.azurecr.io/utils
+      resource_files:
+        - blob_source: https://raw.githubusercontent.com/compmetagen/AIforEarth2020/master/shipyard/scripts/prok_mimag.sh
+          file_path: prok_mimag.sh
+        - blob_source: https://raw.githubusercontent.com/compmetagen/AIforEarth2020/master/shipyard/scripts/checkm_mimag.py
+          file_path: checkm_mimag.py
+      command: /bin/bash prok_mimag.sh {{ sra_accession }}
+      depends_on: 
+        - {{ sra_accession }}-prok-qual-task

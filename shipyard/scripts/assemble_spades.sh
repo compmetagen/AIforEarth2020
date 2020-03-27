@@ -5,25 +5,29 @@ THREADS=40
 MEMORY=350 # in GB
 #### End Parameters
 
-SAMPLES_DIR=${AZ_BATCH_NODE_SHARED_DIR}/aiforearth/samples
-FASTQ_CLEAN_DIR=${SAMPLES_DIR}/${1}/data/fastq_clean
+SAMPLES_DIR=${AZ_BATCH_NODE_SHARED_DIR}/data/samples
+FASTQ_CLEAN_DATA_DIR=${SAMPLES_DIR}/${1}/data/fastq_clean
 
 DATA_DIR=${SAMPLES_DIR}/${1}/data/spades
 LOG_DIR=${SAMPLES_DIR}/${1}/logs/spades
 
+
+if [ "$CLEAN" = true ]; then
+    rm -rf ${DATA_DIR} ${LOG_DIR}
+fi
+
 mkdir -p ${DATA_DIR}
 mkdir -p ${LOG_DIR}
-
 
 if [ -f "${DATA_DIR}/scaffolds.fasta" ]; then
     exit 0
 fi
 
-cp ${FASTQ_CLEAN_DIR}/*.fastq .
+cp ${FASTQ_CLEAN_DATA_DIR}/*.fastq .
 
-if [ -f "${FASTQ_CLEAN_DIR}/${1}_2.fastq" ]; then
+if [ -f "${FASTQ_CLEAN_DATA_DIR}/${1}_2.fastq" ]; then
 
-    cp ${FASTQ_CLEAN_DIR}/*.fastq .
+    cp ${FASTQ_CLEAN_DATA_DIR}/*.fastq .
 
     spades.py \
         --meta \

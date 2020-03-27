@@ -4,17 +4,21 @@
 THREADS=40
 #### End Parameters
 
-SAMPLES_DIR=${AZ_BATCH_NODE_SHARED_DIR}/aiforearth/samples
+SAMPLES_DIR=${AZ_BATCH_NODE_SHARED_DIR}/data/samples
 FASTQ_CLEAN_DIR=${SAMPLES_DIR}/${1}/data/fastq_clean
 SPADES_DATA_DIR=${SAMPLES_DIR}/${1}/data/spades
 MEGAHIT_DATA_DIR=${SAMPLES_DIR}/${1}/data/megahit
 
-DATA_DIR=${SAMPLES_DIR}/${1}/data/map
-LOG_DIR=${SAMPLES_DIR}/${1}/logs/map/bowtie2
+DATA_DIR=${SAMPLES_DIR}/${1}/data/map_bowtie2
+LOG_DIR=${SAMPLES_DIR}/${1}/logs/map_bowtie2
+
+
+if [ "$CLEAN" = true ]; then
+    rm -rf ${DATA_DIR} ${LOG_DIR}
+fi
 
 mkdir -p ${DATA_DIR}
 mkdir -p ${LOG_DIR}
-
 
 if [ -f "${DATA_DIR}/map.sam" ] | [ -f "${DATA_DIR}/map.bam" ]; then
     exit 0
@@ -49,4 +53,5 @@ rm -rf contigs.fasta
 rm -rf bowtie2db
 
 # copy logs
-cp ${AZ_BATCH_TASK_DIR}/std???.txt ${LOG_DIR}
+cp ${AZ_BATCH_TASK_DIR}/stdout.txt ${LOG_DIR}/stdout_bowtie2.txt
+cp ${AZ_BATCH_TASK_DIR}/stderr.txt ${LOG_DIR}/stderr_bowtie2.txt
