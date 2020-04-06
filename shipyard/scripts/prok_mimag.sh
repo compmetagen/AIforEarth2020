@@ -8,7 +8,7 @@ DATA_DIR=${SAMPLES_DIR}/${1}/data/checkm_mimag
 LOG_DIR=${SAMPLES_DIR}/${1}/logs/checkm_mimag
 
 
-if [ "$CLEAN" = true ]; then
+if [ "$CLEAN" = 'true' ]; then
     rm -rf ${DATA_DIR} ${LOG_DIR}
 fi
 

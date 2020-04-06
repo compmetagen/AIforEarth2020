@@ -13,7 +13,7 @@ DATA_DIR=${SAMPLES_DIR}/${1}/data/map_bowtie2
 LOG_DIR=${SAMPLES_DIR}/${1}/logs/map_bowtie2
 
 
-if [ "$CLEAN" = true ]; then
+if [ "$CLEAN" = 'true' ]; then
     rm -rf ${DATA_DIR} ${LOG_DIR}
 fi
 

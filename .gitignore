@@ -2,3 +2,4 @@ shipyard/jobs/
 .vscode
 *.pyc
 run.sh
+data

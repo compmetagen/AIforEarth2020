@@ -14,7 +14,7 @@ DATA_DIR=${SAMPLES_DIR}/${1}/data/metabat2
 LOG_DIR=${SAMPLES_DIR}/${1}/logs/metabat2
 
 
-if [ "$CLEAN" = true ]; then
+if [ "$CLEAN" = 'true' ]; then
     rm -rf ${DATA_DIR} ${LOG_DIR}
 fi
 

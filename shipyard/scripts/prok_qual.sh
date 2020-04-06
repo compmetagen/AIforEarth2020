@@ -11,7 +11,7 @@ DATA_DIR=${SAMPLES_DIR}/${1}/data/checkm
 LOG_DIR=${SAMPLES_DIR}/${1}/logs/checkm
 
 
-if [ "$CLEAN" = true ]; then
+if [ "$CLEAN" = 'true' ]; then
     rm -rf ${DATA_DIR} ${LOG_DIR}
 fi
 

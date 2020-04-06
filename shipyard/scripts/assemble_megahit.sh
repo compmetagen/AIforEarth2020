@@ -13,7 +13,7 @@ DATA_DIR=${SAMPLES_DIR}/${1}/data/megahit
 LOG_DIR=${SAMPLES_DIR}/${1}/logs/megahit
 
 
-if [ "$CLEAN" = true ]; then
+if [ "$CLEAN" = 'true' ]; then
     rm -rf ${DATA_DIR} ${LOG_DIR}
 fi
 

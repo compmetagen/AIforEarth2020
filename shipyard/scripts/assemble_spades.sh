@@ -12,7 +12,7 @@ DATA_DIR=${SAMPLES_DIR}/${1}/data/spades
 LOG_DIR=${SAMPLES_DIR}/${1}/logs/spades
 
 
-if [ "$CLEAN" = true ]; then
+if [ "$CLEAN" = 'true' ]; then
     rm -rf ${DATA_DIR} ${LOG_DIR}
 fi
 

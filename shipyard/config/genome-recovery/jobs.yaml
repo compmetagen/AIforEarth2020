@@ -3,7 +3,7 @@ job_specifications:
   shared_data_volumes:
     - datablob_vol
   environment_variables:
-    CLEAN: false
+    CLEAN: 'false'
   tasks:
     - id: {{ sra_accession }}-download-task
       docker_image: aiforearth2020.azurecr.io/sra-toolkit
