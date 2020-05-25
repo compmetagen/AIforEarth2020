@@ -14,13 +14,13 @@ output_fn = sys.argv[2]
 Entrez.email = "davide.albanese@fmach.it"
 
 input_df = pd.read_csv(input_fn, delimiter='\t', index_col=False, header=0,
-    dtype=str)
+    dtype=str, na_filter=False)
 output_df = pd.DataFrame()
 
 biosample_count, run_count = 0, 0
 for _, input_row in input_df.iterrows():
     biosample = input_row["NCBI Biosample Accession"]
-    if biosample != '':
+    if biosample != '':       
         ehandle = Entrez.esearch(db="sra", term=biosample)
         erecord = Entrez.read(ehandle)
         ehandle.close()
