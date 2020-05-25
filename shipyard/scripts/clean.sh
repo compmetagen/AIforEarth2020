@@ -5,7 +5,7 @@
 # and assemblyPipeline.sh in the BBMap package
 
 #### Parameters:
-THREADS=28
+THREADS=14
 MINLENGTH=50
 #### End Parameters
 

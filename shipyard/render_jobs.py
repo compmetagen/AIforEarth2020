@@ -15,7 +15,7 @@ jobs_dir = "jobs/genome-recovery"
 
 env = Environment(loader = FileSystemLoader(template_dir))
 template = env.get_template("jobs.yaml")
-for row in list(input_df.iterrows())[0:50]:
+for i, row in list(input_df.iterrows())[0:50]:
     run, platform = row["Run"], row["Platform"]
     if platform == "ILLUMINA":
         jobs_fn = os.path.join(jobs_dir, "{}.yaml".format(run))

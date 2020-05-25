@@ -1,7 +1,7 @@
 # map_samtools.sh SRA_ACCESSION
 
 #### Parameters:
-THREADS=24
+THREADS=14
 MAX_MEM_PER_THREAD=8G # remember the G suffix (for giga)
 #### End Parameters
 
