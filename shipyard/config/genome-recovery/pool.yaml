@@ -15,8 +15,8 @@ pool_specification:
     scenario:
       name: active_tasks
       maximum_vm_count:
-        dedicated: 4
-        low_priority: 2
+        dedicated: 5
+        low_priority: 0
       maximum_vm_increment_per_evaluation:
         dedicated: -1
         low_priority: -1
