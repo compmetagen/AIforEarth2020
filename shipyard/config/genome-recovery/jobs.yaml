@@ -6,7 +6,7 @@ job_specifications:
     CLEAN: 'false'
   tasks:
     - id: {{ sra_accession }}-download-task
-      docker_image: metashot/sra-toolkit:2.9.2-1
+      docker_image: metashot/sra-toolkit:2.10.7-2
       resource_files:
         - blob_source: https://raw.githubusercontent.com/compmetagen/AIforEarth2020/master/shipyard/scripts/download.sh
           file_path: download.sh
