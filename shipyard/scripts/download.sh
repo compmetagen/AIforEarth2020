@@ -1,7 +1,7 @@
 # download.sh SRA_ACCESSION
 
 #### Parameters:
-THREADS=8
+THREADS=1
 #### End Parameters
 
 SAMPLES_DIR=${AZ_BATCH_NODE_SHARED_DIR}/data/samples
