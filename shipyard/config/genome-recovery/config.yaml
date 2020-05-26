@@ -12,12 +12,12 @@ global_resources:
           - --use-https=true
         bind_options: rw
   docker_images:
-    - aiforearth2020.azurecr.io/utils
-    - aiforearth2020.azurecr.io/sra-toolkit
-    - aiforearth2020.azurecr.io/bbtools
-    - aiforearth2020.azurecr.io/spades
-    - aiforearth2020.azurecr.io/megahit
-    - aiforearth2020.azurecr.io/bowtie2
-    - aiforearth2020.azurecr.io/htslib
-    - aiforearth2020.azurecr.io/metabat2
-    - aiforearth2020.azurecr.io/checkm
+    - metashot/utils:1.0.0-1
+    - metashot/sra-toolkit:2.9.2-1
+    - metashot/bbtools:38.79-1
+    - metashot/spades:3.14.0-1
+    - metashot/megahit:1.2.9-1
+    - metashot/bowtie2:2.3.4.3-1
+    - metashot/htslib:1.9-1
+    - metashot/metabat2:2.12.1-1
+    - metashot/checkm:1.1.2-1
