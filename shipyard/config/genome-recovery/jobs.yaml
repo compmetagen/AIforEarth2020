@@ -1,5 +1,7 @@
 job_specifications:
 - id: {{ sra_accession }}-genome-recovery-job
+  remove_container_after_exit: true
+  max_task_retries: 3
   shared_data_volumes:
     - datablob_vol
   environment_variables:
