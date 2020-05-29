@@ -1,0 +1,143 @@
+FROM debian:10.2
+
+ENV LANG=C.UTF-8
+
+ENV VERSION_SRA_TOOLKIT=2.10.7
+ENV VERSION_BBTOOLS=38.79
+ENV VERSION_SPADES=3.14.0
+ENV VERSION_MEGAHIT=1.2.9
+ENV VERSION_BOWTIE2=2.3.4.3-1
+ENV VERSION_SAMTOOLS=1.9-4
+ENV VERSION_TABIX=1.9-11
+ENV VERSION_BCFTOOLS=1.9-1
+ENV VERSION_METABAT2=2.12.1
+ENV VERSION_PRODIGAL=1:2.6.3-4
+ENV VERSION_HMMER=3.2.1+dfsg-1
+ENV VERSION_PPLACER=1.1.alpha19
+ENV VERSION_CHECKM=1.1.2
+ENV VERSION_CHECKM_DATA=2015_01_16
+
+RUN apt-get update
+RUN apt-get -y install \
+  bash \
+  curl \
+  tar \
+  bzip2 \
+  gzip \
+  unzip \
+  wget \
+  perl \
+  python \
+  python3 \
+  default-jre \
+  build-essential \
+  libxml-libxml-perl \
+  uuid-runtime \  
+  libgomp1 \
+  python3-pip \
+  libbz2-dev \
+  zlib1g-dev \
+  liblzma-dev
+
+
+# sra-toolkitdownload and extract the 
+ENV VERSION=2.10.7
+RUN mkdir -p /usr/local/ncbi/sra-toolkit
+WORKDIR /usr/local/ncbi/sra-toolkit
+RUN curl -s https://ftp-trace.ncbi.nlm.nih.gov/sra/sdk/${VERSION_SRA_TOOLKIT}/sratoolkit.${VERSION_SRA_TOOLKIT}-ubuntu64.tar.gz | \
+    tar -zxf - --strip-components=1
+WORKDIR /
+ENV PATH="/usr/local/ncbi/sra-toolkit/bin:${PATH}"
+RUN mkdir /root/.ncbi/
+RUN printf '/LIBS/GUID = "%s"\n' `uuidgen` > /root/.ncbi/user-settings.mkfg
+
+# bbtools
+RUN mkdir -p /usr/local/bbmap
+WORKDIR /usr/local/bbmap
+RUN curl -s -L https://sourceforge.net/projects/bbmap/files/BBMap_${VERSION_BBTOOLS}.tar.gz/download | \
+    tar -zxf - --strip-components=1
+WORKDIR /
+ENV PATH="/usr/local/bbmap:${PATH}"
+
+# spades
+RUN mkdir -p /usr/local/spades
+WORKDIR /usr/local/spades
+RUN curl -s http://cab.spbu.ru/files/release${VERSION_SPADES}/SPAdes-${VERSION_SPADES}-Linux.tar.gz | \
+    tar -zxf - --strip-components=1
+WORKDIR /
+ENV PATH="/usr/local/spades/bin:${PATH}"
+
+# megahit
+RUN mkdir -p /usr/local/megahit
+WORKDIR /usr/local/megahit
+RUN curl -s -L https://github.com/voutcn/megahit/releases/download/v${VERSION_MEGAHIT}/MEGAHIT-${VERSION_MEGAHIT}-Linux-x86_64-static.tar.gz | \
+    tar -zxf - --strip-components=1
+WORKDIR /
+ENV PATH="/usr/local/megahit/bin:${PATH}"
+
+# bowtie2
+RUN apt-get -y install \
+  bowtie2=${VERSION_BOWTIE2}
+
+# htslib
+RUN apt-get -y install \
+  samtools=${VERSION_SAMTOOLS} \
+  tabix=${VERSION_TABIX} \
+  bcftools=${VERSION_BCFTOOLS}
+
+# metabat2
+RUN mkdir -p /usr/local/metabat2
+WORKDIR /usr/local/metabat2
+RUN curl -s -L https://bitbucket.org/berkeleylab/metabat/downloads/metabat-static-binary-linux-x64_v${VERSION_METABAT2}.tar.gz | \
+    tar -zxf - --strip-components=1
+RUN chmod +rx \
+  metabat* \
+  runMetaBat.sh \
+  jgi_summarize_bam_contig_depths \
+  contigOverlaps \
+  aggregateContigOverlapsByBin.pl \
+  aggregateBinDepths.pl  
+WORKDIR /
+ENV PATH="/usr/local/metabat2:${PATH}"
+
+# prodigal
+RUN apt-get -y install \
+  prodigal=${VERSION_PRODIGAL}
+  
+# hmmer
+RUN apt-get -y install\
+  hmmer=${VERSION_HMMER}
+
+# pplacer
+RUN mkdir -p /usr/local/pplacer
+WORKDIR /usr/local/pplacer
+RUN curl -s -L https://github.com/matsen/pplacer/releases/download/v${VERSION_PPLACER}/pplacer-linux-v${VERSION_PPLACER}.zip -o pplacer.zip; \
+    unzip -j pplacer.zip; \
+    rm -rf pplacer.zip
+WORKDIR /
+ENV PATH="/usr/local/pplacer:${PATH}"
+
+# checkm
+RUN pip3 install Cython
+RUN pip3 install numpy matplotlib pysam "checkm-genome== ${VERSION_CHECKM}"
+
+# checkm data
+RUN mkdir -p /usr/local/checkm_data
+WORKDIR /usr/local/checkm_data
+RUN curl -s -L https://data.ace.uq.edu.au/public/CheckM_databases/checkm_data_${VERSION_CHECKM_DATA}.tar.gz | \
+  tar -zxf - --strip-components=1
+WORKDIR /
+RUN checkm data setRoot /usr/local/checkm_data
+
+# python3 utils
+RUN pip3 install \
+  numpy \
+  scipy \
+  pandas \
+  matplotlib \
+  biopython \
+  pysam \
+  matplotlib
+
+RUN rm -rf /tmp/* \
+  && rm -rf /var/lib/apt/lists/*
