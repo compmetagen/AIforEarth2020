@@ -30,7 +30,7 @@ for d in ['HQ', 'MQ', 'LQ']:
     except FileExistsError:
         pass
 
-checkm_qa = pd.read_table(CHECKM_QA, sep='\s{2,}', skiprows=[0, 2],
+checkm_qa = pd.read_table(CHECKM_QA, sep=r'\s{2,}', skiprows=[0, 2],
     skipfooter=1, header=0, engine='python', index_col=0) 
 
 checkm_qa['MIMAG cat'] = checkm_qa.apply(set_mimag_cat, axis=1)
