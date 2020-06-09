@@ -2,4 +2,4 @@ batch_shipyard:
   storage_account_settings: shipyard
 global_resources:
   docker_images:
-    - aiforearth2020/genome_recovery
+    - aiforearth2020/genome-recovery

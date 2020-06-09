@@ -13,7 +13,7 @@ job_specifications:
     KEEP_CLEAN_READS: 0
   tasks:
     - id: {{ sra_accession }}-genome-recovery-task
-      docker_image: aiforearth2020/genome_recovery
+      docker_image: aiforearth2020/genome-recovery
       resource_files:
         - blob_source: https://raw.githubusercontent.com/compmetagen/AIforEarth2020/master/shipyard/scripts/genome_recovery.sh
           file_path: genome_recovery.sh
