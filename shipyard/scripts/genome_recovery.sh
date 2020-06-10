@@ -1,5 +1,4 @@
 ######## ENVIRONMENT VARIABLES
-# ACCESSION=sample
 # MEM=4
 # CPU_L=2
 # CPU_M=4
@@ -8,6 +7,7 @@
 # KEEP_RAW_READS=0
 # KEEP_CLEAN_READS=0
 
+ACCESSION=${1}
 
 ######## START Preparation
 OUTDIR=${ACCESSION}
