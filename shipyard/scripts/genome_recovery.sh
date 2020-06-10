@@ -29,7 +29,7 @@ mkdir -p ${OUTDIR}
 #######
 
 
-if [ KEEP_RAW_READS ]; then
+if (( KEEP_RAW_READS )); then
     OUTDIR_RAW_READS=${OUTDIR}/raw_reads
     mkdir -p ${OUTDIR_RAW_READS}
     cp ${ACCESSION}*.fastq.gz ${OUTDIR_RAW_READS}
@@ -55,13 +55,13 @@ bbduk.sh \
     aqhist=aqhist.txt \
     lhist=lhist.txt \
     gcbins=auto
-mv *hist.txt ${OUTDIR_RAW_READS_HIST}
+mv *hist.txt ${OUTDIR_RAW_READS_HIST}/
 ######## END Raw reads histograms
 
 
 ######## START Clean reads
 OUTDIR_STATS_CLEAN=${OUTDIR}/stats_clean
-mkdir -p ${OUTDIR_CLEAN_READS}
+mkdir -p ${OUTDIR_STATS_CLEAN}
 
 if (( $SINGLE_END )) ; then
     RAW_READS="in=\"${ACCESSION}.fastq.gz\""
@@ -128,8 +128,8 @@ bbduk.sh \
     threads=$CPU_M
 rm -rf clean_contaminant*.fastq.gz
 
-mv stats_adapter_trimming.txt $OUTDIR_STATS_CLEAN
-mv stats_contaminant_filtering.txt $OUTDIR_STATS_CLEAN
+mv stats_adapter_trimming.txt $OUTDIR_STATS_CLEAN/
+mv stats_contaminant_filtering.txt $OUTDIR_STATS_CLEAN/
 ######## END Clean reads
 
 
@@ -159,7 +159,7 @@ bbduk.sh \
     aqhist=aqhist.txt \
     lhist=lhist.txt \
     gcbins=auto
-mv *hist.txt ${OUTDIR_CLEAN_READS_HIST}
+mv *hist.txt ${OUTDIR_CLEAN_READS_HIST}/
 ######## END Clean reads histograms
 
 
