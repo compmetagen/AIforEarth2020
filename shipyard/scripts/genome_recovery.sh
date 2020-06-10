@@ -122,7 +122,7 @@ bbduk.sh \
     maxns=4 \
     qtrim=r \
     trimq=6 \
-    mlf=0.5 \
+    mlf=0.7 \
     minlen=$MIN_READ_LEN \
     interleaved=f \
     threads=$CPU_M
