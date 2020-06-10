@@ -2,6 +2,7 @@ job_specifications:
 - id: {{ sra_accession }}-genome-recovery-job
   remove_container_after_exit: true
   environment_variables:
+    ACCESSION: {{ sra_accession }}
     MEM: 112
     CPU_L: 4
     CPU_M: 8
@@ -17,7 +18,7 @@ job_specifications:
           file_path: genome_recovery.sh
         - blob_source: https://raw.githubusercontent.com/compmetagen/AIforEarth2020/master/shipyard/scripts/checkm_mimag.py
           file_path: checkm_mimag.py
-      command: /bin/bash genome_recovery.sh {{ sra_accession }}
+      command: /bin/bash genome_recovery.sh
       output_data:
         azure_storage:
           - storage_account_settings: data

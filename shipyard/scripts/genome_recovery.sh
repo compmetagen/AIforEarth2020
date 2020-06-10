@@ -1,4 +1,5 @@
 ######## ENVIRONMENT VARIABLES
+# ACCESSION=SRR000000
 # MEM=4
 # CPU_L=2
 # CPU_M=4
@@ -7,24 +8,22 @@
 # KEEP_RAW_READS=0
 # KEEP_CLEAN_READS=0
 
-ACCESSION=${1}
-
-######## START Preparation
-OUTDIR=${ACCESSION}
-mkdir -p ${OUTDIR}
-######## END Preparation
-
 
 ######## START Download
-OUTDIR_RAW_READS=${OUTDIR}/raw_reads
-mkdir -p ${OUTDIR_RAW_READS}
-
 fasterq-dump ${ACCESSION} --threads $CPU_L -O .
+######## END Download
 
-if [ KEEP_RAW_READS ]; then   
+####### OUTPUT directory
+OUTDIR=${ACCESSION}
+mkdir -p ${OUTDIR}
+#######
+
+
+if [ KEEP_RAW_READS ]; then
+    OUTDIR_RAW_READS=${OUTDIR}/raw_reads
+    mkdir -p ${OUTDIR_RAW_READS}
     cp ${ACCESSION}*.fastq ${OUTDIR_RAW_READS}
 fi
-######## END Download
 
 
 [ -f "${ACCESSION}_2.fastq" ]
@@ -56,11 +55,8 @@ mv *hist.txt ${OUTDIR_RAW_READS_HIST}
 
 
 ######## START Clean reads
-OUTDIR_CLEAN_READS=${OUTDIR}/clean_reads
 OUTDIR_STATS_CLEAN=${OUTDIR}/stats_clean
-
 mkdir -p ${OUTDIR_CLEAN_READS}
-mkdir -p ${OUTDIR_STATS_CLEAN}
 
 if (( $SINGLE_END )) ; then
     RAW_READS="in=\"${ACCESSION}.fastq\""
@@ -127,13 +123,16 @@ bbduk.sh \
     threads=$CPU_M
 rm -rf clean_contaminant*.fastq
 
-if (( $KEEP_CLEAN_READS )) ; then   
-    cp ${ACCESSION}_clean*.fastq ${OUTDIR_CLEAN_READS}
-fi
-
 mv stats_adapter_trimming.txt $OUTDIR_STATS_CLEAN
 mv stats_contaminant_filtering.txt $OUTDIR_STATS_CLEAN
 ######## END Clean reads
+
+
+if (( $KEEP_CLEAN_READS )) ; then
+    OUTDIR_CLEAN_READS=${OUTDIR}/clean_reads
+    mkdir -p ${OUTDIR_STATS_CLEAN}
+    cp ${ACCESSION}_clean*.fastq ${OUTDIR_CLEAN_READS}
+fi
 
 
 ######## START Clean reads hist
