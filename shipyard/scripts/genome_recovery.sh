@@ -10,7 +10,13 @@
 
 
 ######## START Download
+for i in {1..32}; do 
+    prefetch ${ACCESSION} -O . && break
+    sleep 10
+done
+
 fasterq-dump ${ACCESSION} --threads $CPU_L -O .
+rm -rf ${ACCESSION}
 gzip *.fastq
 ######## END Download
 
@@ -129,7 +135,7 @@ mv stats_contaminant_filtering.txt $OUTDIR_STATS_CLEAN
 
 if (( $KEEP_CLEAN_READS )) ; then
     OUTDIR_CLEAN_READS=${OUTDIR}/clean_reads
-    mkdir -p ${OUTDIR_STATS_CLEAN}
+    mkdir -p ${OUTDIR_CLEAN_READS}
     cp ${ACCESSION}_clean*.fastq.gz ${OUTDIR_CLEAN_READS}
 fi
 
