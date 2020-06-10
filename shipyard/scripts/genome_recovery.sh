@@ -11,7 +11,11 @@
 
 ######## START Download
 fasterq-dump ${ACCESSION} --threads $CPU_L -O .
+gzip *.fastq
 ######## END Download
+
+[ -f "${ACCESSION}_2.fastq.gz" ]
+SINGLE_END=$?
 
 ####### OUTPUT directory
 OUTDIR=${ACCESSION}
@@ -22,12 +26,8 @@ mkdir -p ${OUTDIR}
 if [ KEEP_RAW_READS ]; then
     OUTDIR_RAW_READS=${OUTDIR}/raw_reads
     mkdir -p ${OUTDIR_RAW_READS}
-    cp ${ACCESSION}*.fastq ${OUTDIR_RAW_READS}
+    cp ${ACCESSION}*.fastq.gz ${OUTDIR_RAW_READS}
 fi
-
-
-[ -f "${ACCESSION}_2.fastq" ]
-SINGLE_END=$?
 
 
 ######## START Raw reads hist
@@ -35,9 +35,9 @@ OUTDIR_RAW_READS_HIST=${OUTDIR}/raw_reads_hist
 mkdir -p ${OUTDIR_RAW_READS_HIST}
 
 if (( $SINGLE_END )) ; then
-    RAW_READS="in=\"${ACCESSION}.fastq\"" 
+    RAW_READS="in=\"${ACCESSION}.fastq.gz\"" 
 else    
-    RAW_READS="in1=\"${ACCESSION}_1.fastq\" in2=\"${ACCESSION}_2.fastq\""
+    RAW_READS="in1=\"${ACCESSION}_1.fastq.gz\" in2=\"${ACCESSION}_2.fastq.gz\""
 fi
 
 bbduk.sh \
@@ -53,17 +53,16 @@ mv *hist.txt ${OUTDIR_RAW_READS_HIST}
 ######## END Raw reads histograms
 
 
-
 ######## START Clean reads
 OUTDIR_STATS_CLEAN=${OUTDIR}/stats_clean
 mkdir -p ${OUTDIR_CLEAN_READS}
 
 if (( $SINGLE_END )) ; then
-    RAW_READS="in=\"${ACCESSION}.fastq\""
-    CLEAN_ADAPTER_READS="out=clean_adapter.fastq"
+    RAW_READS="in=\"${ACCESSION}.fastq.gz\""
+    CLEAN_ADAPTER_READS="out=clean_adapter.fastq.gz"
 else    
-    RAW_READS="in1=\"${ACCESSION}_1.fastq\" in2=\"${ACCESSION}_2.fastq\""
-    CLEAN_ADAPTER_READS="out1=clean_adapter_1.fastq out2=clean_adapter_2.fastq"
+    RAW_READS="in1=\"${ACCESSION}_1.fastq.gz\" in2=\"${ACCESSION}_2.fastq.gz\""
+    CLEAN_ADAPTER_READS="out1=clean_adapter_1.fastq.gz out2=clean_adapter_2.fastq.gz"
 fi
 
 bbduk.sh \
@@ -80,14 +79,14 @@ bbduk.sh \
     interleaved=f \
     stats=stats_adapter_trimming.txt
     threads=$CPU_M
-rm -rf ${ACCESSION}*.fastq
+rm -rf ${ACCESSION}*.fastq.gz
 
 if (( $SINGLE_END )) ; then
-    CLEAN_ADAPTER_READS="in=clean_adapter.fastq"
-    CLEAN_CONTAMINANT_READS="out=clean_contaminant.fastq"
+    CLEAN_ADAPTER_READS="in=clean_adapter.fastq.gz"
+    CLEAN_CONTAMINANT_READS="out=clean_contaminant.fastq.gz"
 else    
-    CLEAN_ADAPTER_READS="in1=clean_adapter_1.fastq in2=clean_adapter_2.fastq"
-    CLEAN_CONTAMINANT_READS="out1=clean_contaminant_1.fastq out2=clean_contaminant_2.fastq"
+    CLEAN_ADAPTER_READS="in1=clean_adapter_1.fastq.gz in2=clean_adapter_2.fastq.gz"
+    CLEAN_CONTAMINANT_READS="out1=clean_contaminant_1.fastq.gz out2=clean_contaminant_2.fastq.gz"
 fi
 
 bbduk.sh \
@@ -100,14 +99,14 @@ bbduk.sh \
     interleaved=f \
     stats=stats_contaminant_filtering.txt \
     threads=$CPU_M
-rm -rf clean_adapter*.fastq
+rm -rf clean_adapter*.fastq.gz
 
 if (( $SINGLE_END )) ; then
-    CLEAN_CONTAMINANT_READS="in=clean_contaminant.fastq"
-    CLEAN_READS="out=\"${ACCESSION}_clean.fastq\""
+    CLEAN_CONTAMINANT_READS="in=clean_contaminant.fastq.gz"
+    CLEAN_READS="out=\"${ACCESSION}_clean.fastq.gz\""
 else    
-    CLEAN_CONTAMINANT_READS="in1=clean_contaminant_1.fastq in2=clean_contaminant_2.fastq"
-    CLEAN_READS="out1=\"${ACCESSION}_clean_1.fastq\" out2=\"${ACCESSION}_clean_2.fastq\""
+    CLEAN_CONTAMINANT_READS="in1=clean_contaminant_1.fastq.gz in2=clean_contaminant_2.fastq.gz"
+    CLEAN_READS="out1=\"${ACCESSION}_clean_1.fastq.gz\" out2=\"${ACCESSION}_clean_2.fastq.gz\""
 fi
 
 bbduk.sh \
@@ -121,7 +120,7 @@ bbduk.sh \
     minlen=$MIN_READ_LEN \
     interleaved=f \
     threads=$CPU_M
-rm -rf clean_contaminant*.fastq
+rm -rf clean_contaminant*.fastq.gz
 
 mv stats_adapter_trimming.txt $OUTDIR_STATS_CLEAN
 mv stats_contaminant_filtering.txt $OUTDIR_STATS_CLEAN
@@ -131,7 +130,7 @@ mv stats_contaminant_filtering.txt $OUTDIR_STATS_CLEAN
 if (( $KEEP_CLEAN_READS )) ; then
     OUTDIR_CLEAN_READS=${OUTDIR}/clean_reads
     mkdir -p ${OUTDIR_STATS_CLEAN}
-    cp ${ACCESSION}_clean*.fastq ${OUTDIR_CLEAN_READS}
+    cp ${ACCESSION}_clean*.fastq.gz ${OUTDIR_CLEAN_READS}
 fi
 
 
@@ -140,9 +139,9 @@ OUTDIR_CLEAN_READS_HIST=${OUTDIR}/clean_reads_hist
 mkdir -p ${OUTDIR_CLEAN_READS_HIST}
 
 if (( $SINGLE_END )); then
-    CLEAN_READS="in=\"${ACCESSION}_clean.fastq\""
+    CLEAN_READS="in=\"${ACCESSION}_clean.fastq.gz\""
 else    
-    CLEAN_READS="in1=\"${ACCESSION}_clean_1.fastq\" in2=\"${ACCESSION}_clean_2.fastq\""
+    CLEAN_READS="in1=\"${ACCESSION}_clean_1.fastq.gz\" in2=\"${ACCESSION}_clean_2.fastq.gz\""
 fi
 
 bbduk.sh \
@@ -169,8 +168,8 @@ if (( ! $SINGLE_END )); then
     spades.py \
         --meta \
         --only-assembler \
-        -1 ${ACCESSION}_clean_1.fastq \
-        -2 ${ACCESSION}_clean_2.fastq \
+        -1 ${ACCESSION}_clean_1.fastq.gz \
+        -2 ${ACCESSION}_clean_2.fastq.gz \
         --threads $CPU_H \
         --memory $MEM \
         -o spades
@@ -200,9 +199,9 @@ if (( $SINGLE_END || $SPADES_FAILED )); then
     mkdir -p ${OUTDIR_MEGAHIT}
 
     if (( $SINGLE_END )) ; then
-        CLEAN_READS="-r ${ACCESSION}_clean.fastq"
+        CLEAN_READS="-r ${ACCESSION}_clean.fastq.gz"
     else
-        CLEAN_READS="-1 ${ACCESSION}_clean_1.fastq -2 ${ACCESSION}_clean_2.fastq"
+        CLEAN_READS="-1 ${ACCESSION}_clean_1.fastq.gz -2 ${ACCESSION}_clean_2.fastq.gz"
     fi
 
     megahit \
@@ -238,9 +237,9 @@ bowtie2-build \
     bowtie2db/contigs
 
 if (( $SINGLE_END )) ; then
-    CLEAN_READS="-U \"${ACCESSION}_clean.fastq\""
+    CLEAN_READS="-U \"${ACCESSION}_clean.fastq.gz\""
 else
-    CLEAN_READS="-1 \"${ACCESSION}_clean_1.fastq\" -2 \"${ACCESSION}_clean_2.fastq\""
+    CLEAN_READS="-1 \"${ACCESSION}_clean_1.fastq.gz\" -2 \"${ACCESSION}_clean_2.fastq.gz\""
 fi
 
 bowtie2 \
@@ -252,7 +251,7 @@ rm -rf bowtie2db
 ######## END Mapping
 
 
-rm -rf ${ACCESSION}_clean*.fastq
+rm -rf ${ACCESSION}_clean*.fastq.gz
 
 
 ######## START Samtools
