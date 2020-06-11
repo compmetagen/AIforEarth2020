@@ -24,4 +24,5 @@ job_specifications:
           - storage_account_settings: data
             remote_path: data/genome_recovery/{{ sra_accession }}
             local_path: $AZ_BATCH_TASK_WORKING_DIR/{{ sra_accession }}
+            condition: taskcompletion
       retention_time: 0.00:15:00
