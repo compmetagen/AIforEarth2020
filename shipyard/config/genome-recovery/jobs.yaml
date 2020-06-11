@@ -22,5 +22,6 @@ job_specifications:
       output_data:
         azure_storage:
           - storage_account_settings: data
-            remote_path: data/sample/{{ sra_accession }}
+            remote_path: data/genome_recovery/{{ sra_accession }}
             local_path: $AZ_BATCH_TASK_WORKING_DIR/{{ sra_accession }}
+      retention_time: 0.00:15:00

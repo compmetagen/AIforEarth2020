@@ -294,3 +294,7 @@ python3 checkm_mimag.py \
     ${OUTDIR}/checkm_qa.txt \
     ${OUTDIR}/mimag_prok
 ######## END MIMAG
+
+
+cp ${AZ_BATCH_TASK_DIR}/stdout.txt ${OUTDIR}
+cp ${AZ_BATCH_TASK_DIR}/stderr.txt ${OUTDIR}
