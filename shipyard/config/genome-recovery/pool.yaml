@@ -8,12 +8,12 @@ pool_specification:
   vm_count:
     dedicated: 0
     low_priority: 0
-  vm_size: "STANDARD_E16_V3"
+  vm_size: "STANDARD_E32_V3"
   max_tasks_per_node: 1
   autoscale:
     evaluation_interval: 00:15:00
     scenario:
       name: active_tasks
       maximum_vm_count:
-        dedicated: 2
+        dedicated: 5
         low_priority: 0

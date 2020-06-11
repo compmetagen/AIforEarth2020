@@ -3,10 +3,10 @@ job_specifications:
   remove_container_after_exit: true
   environment_variables:
     ACCESSION: {{ sra_accession }}
-    MEM: 112
-    CPU_L: 4
-    CPU_M: 8
-    CPU_H: 14
+    MEM: 240
+    CPU_L: 8
+    CPU_M: 16
+    CPU_H: 28
     MIN_READ_LEN: 50
     KEEP_RAW_READS: 0
     KEEP_CLEAN_READS: 1
@@ -22,5 +22,5 @@ job_specifications:
       output_data:
         azure_storage:
           - storage_account_settings: data
-            remote_path: data/sample
+            remote_path: data/sample/{{ sra_accession }}
             local_path: $AZ_BATCH_TASK_WORKING_DIR/{{ sra_accession }}
