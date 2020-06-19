@@ -1,4 +1,5 @@
 shipyard/jobs/
+shipyard/accession_list.tsv
 .vscode
 *.pyc
 run.sh

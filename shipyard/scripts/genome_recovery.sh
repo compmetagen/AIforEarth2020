@@ -1,5 +1,5 @@
 ######## ENVIRONMENT VARIABLES
-# ACCESSION=SRR000000
+# ACCESSION=SRR0000000
 # MEM=4
 # CPU_L=2
 # CPU_M=4
@@ -11,7 +11,7 @@
 
 ######## START Download
 for i in {1..32}; do 
-    prefetch ${ACCESSION} -O . && break
+    prefetch ${ACCESSION} --max-size 30000000 -O . && break
     sleep 10
 done
 
